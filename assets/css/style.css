@@ -11,7 +11,21 @@
     text-align: center;
 }
 
-.container > input{
+.input {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.input > input, #submitBtn{
     margin: 14px;
     padding: 10px;
+}
+
+#submitBtn{
+    cursor: pointer;
+}
+
+#tasks {
+    list-style-type: none;
 }
