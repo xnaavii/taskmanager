@@ -1,9 +1,16 @@
+body{
+    margin: 0 auto;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
 .container{
     display: flex;
     flex-direction: column;
     margin: auto;
     max-width: 400px;
-    max-height: 500px;
+    height: 500px;
     border: 1px solid red;
 }
 
@@ -14,10 +21,10 @@
 .input {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
 }
 
-.input > input, #submitBtn{
+.input > input, #submitBtn, #tasks{
     margin: 14px;
     padding: 10px;
 }
@@ -28,4 +35,20 @@
 
 #tasks {
     list-style-type: none;
+}
+
+.task {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 400px;
+    margin-bottom: 10px;
+}
+
+.remove {
+    width: 25px;
+    height: 25px;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
 }
