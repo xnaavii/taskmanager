@@ -1,22 +1,34 @@
 const taskList = document.getElementById('tasks');
-const task = document.querySelectorAll('.task');
-const taskName = document.getElementById('task-name');
+const taskNameInput = document.getElementById('task-name');
 const submitBtn = document.getElementById('submitBtn');
 
 
 // Function to add a task and check for an empty field
 function addTask(){
-    if(taskName.value !== ''){
-        var newTask = document.createElement('li');
-        let removeBtn = document.createElement('button');
-        removeBtn.classList.add('remove');
-        removeBtn.innerHTML = 'X';
+    const taskName = taskNameInput.value.trim();
+    if(taskNameInput.value !== '') {
+        const li = document.createElement('li');
+        li.classList.add('task');
+        li.textContent = taskName;
+
+        const removeBtn = document.createElement('button');
+        removeBtn.classList.add('fa-solid','fa-trash','fa-sm','remove');
         removeBtn.addEventListener('click', removeTask)
-        newTask.classList.add('task');
-        newTask.textContent = `${taskName.value}`;
-        taskList.prepend(newTask);
-        newTask.appendChild(removeBtn);
-        taskName.value = []; // Clear the input field on submit
+        
+        const completeBtn = document.createElement('button');
+        completeBtn.classList.add('fa-solid', 'fa-check','fa-sm', 'complete');
+        completeBtn.addEventListener('click', toggleTaskCompletion);
+
+        const buttons = document.createElement('div');
+        buttons.classList.add('task-buttons');
+        buttons.appendChild(removeBtn)
+        buttons.appendChild(completeBtn)
+
+        li.appendChild(buttons);
+        taskList.prepend(li);
+        
+        console.log('Task Added', li);
+        taskNameInput.value = ''; // Clear the input field on submit
     } else {
         alert("Write down a task!");
     }
@@ -24,16 +36,24 @@ function addTask(){
 
 // Function to removing tasks
 function removeTask(e){
-    if(confirm("Are you sure want to delete this task?")){
-        e.target.parentNode.remove();
-        console.log("Deleted!");
+    const taskItem = e.target.closest('li.task');
+    if (taskItem) {
+        taskItem.remove();
+        console.log("Task removed!");
+    }
+}
+
+function toggleTaskCompletion(e){
+    const taskItem = e.target.closest('li.task');
+    if(taskItem){
+        taskItem.classList.toggle('task-text');
     }
 }
 
 submitBtn.addEventListener('click', addTask)
 // Listen for event listener on enter key
-taskName.addEventListener('keydown', (e) => {
-    if(e.key == "Enter"){
+taskNameInput.addEventListener('keydown', (e) => {
+    if(e.key === "Enter"){
         addTask();
     }
-})
+});
